@@ -33,6 +33,7 @@ X_train.shape, y_train.shape
 
 model = Sequential()
 model.add(LSTM(units=50, return_sequences=True, input_shape=(X_train.shape[1], X_train.shape[2])))
+model.add(LSTM(units=50)
 model.add(Dense(units=1))
 
 model.compile(optimizer="adam", loss="mean_squared_error")
@@ -57,12 +58,13 @@ test_data_copy['Predicted Close'] = result
 
 test_data_copy['Date'] = pd.to_datetime(test_data_copy['Date'])
 
+Date = test_data_copy['Date'].iloc[sequences:]
+Actual_Close = test_data_copy['Close'].iloc[sequences:]
 plt.figure(figsize=(12, 8))
 plt.title('Actual vs. Predicted Closing Prices')
 plt.xlabel('Date')
 plt.ylabel('Closing Price')
-plt.plot(test_data_copy['Date'], test_data_copy['Close'], label='Actual Close', color='r')
-plt.plot(test_data_copy['Date'], test_data_copy['Predicted Close'], label='Predicted Close', color='b', linestyle='--')
+plt.plot(Date ,Actual_Close, label='Actual Close', color='r')
+plt.plot(Date ,result, label='Predicted Close', color='b', linestyle='--')
 plt.legend()
 plt.show()
-
